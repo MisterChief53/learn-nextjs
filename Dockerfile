@@ -1,12 +1,25 @@
 FROM node:21-bookworm
 
-# RUN apt-get update && apt-get install -y nodejs npm node-libnpx
+# Set the working directory in the container
+# we need to set this to be able to use relative paths!
+WORKDIR /usr/src/app
 
-# EXPOSE 3000
+EXPOSE 3000
 
-ENV PORT 3000
-# # set hostname to localhost
-ENV HOSTNAME "0.0.0.0"
+# ENV PORT 3000
+
+# Copy application dependency manifests to the container image.
+# A wildcard is used to ensure both package.json AND package-lock.json are copied.
+# Copying this separately prevents re-running npm install on every code change.
+COPY package*.json ./
+
+
+RUN npm install
+
+# Copy local code to the container image.
+COPY . ./
+
+RUN npm run build
 
 # CMD ["node"]
-CMD ["sh", "-c", "while true; do sleep 3600; done"]
+CMD ["npm", "run", "start"]

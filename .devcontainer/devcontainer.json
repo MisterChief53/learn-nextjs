@@ -3,7 +3,6 @@
 {
 	"name": "Existing Dockerfile",
 	"dockerComposeFile": [
-		"../docker-compose.yml",
 		"./docker-compose.dev.yml"
 	],
 	"service": "visionaitest",
