@@ -2,12 +2,13 @@ version: '3'
 services:
     visionaitest:
         build:
-            context: .
+            context: ..
+            dockerfile: ./.devcontainer/Dockerfile
         container_name: visionaitest
         ports:
             - 3000:3000
         volumes:
-            - .:/workspace
+            - ..:/workspace
             - /workspace/node_modules
             - /workspace/.next
         command: /bin/bash -c "cd /workspace && while true; do sleep 3600; done"
